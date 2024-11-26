@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="sd_tasks.sd_tasks_dashboard" owl="1">
+
+        <div class="containder">
+            <div class="m-5 border">
+
+            </div>
+            <div class="m-2 border border-info tasks">
+                <table class="o_list_table table table-sm table-hover position-relative mb-0 o_list_table_grouped">
+                    <thead>
+                        <tr>
+                            <th t-foreach="this.state.header" t-key="header" t-as="header"
+                                class="o_list_record_selector o_list_controller align-middle pe-1">
+                                <div t-esc="header"> </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="this.state.rows" t-as="row_data"  t-key="row_data.id" >
+                            <t t-log="row_data"></t>
+                            <t t-foreach="this.state.header" t-as="head" t-key="head" >
+                            <td>
+                                <div t-esc="row_data[head]"></div>
+                            </td>
+
+                            </t>
+
+<!--                            <td t-foreach="row_data" t-key="col_data" t-as="col_data" >-->
+<!--                                <div t-esc="col_data"-->
+<!--                                     t-attf-class="{{ col_data.onclick ? 'cursor-pointer' : '' }}"-->
+<!--                                     t-att-class="col_data.class"-->
+<!--                                     t-on-click="col_data.onclick ? () => clicked(col_data.id) : () => false"-->
+<!--                                > </div>-->
+<!--                            </td>-->
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </t>
+</templates>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sd_tasks_settings_admins,sd_tasks.settings,model_sd_tasks_settings,sd_tasks.group_sd_tasks_admins,1,1,1,1
+access_sd_tasks_settings_users,sd_tasks.settings,model_sd_tasks_settings,sd_tasks.group_sd_tasks_users,1,0,0,0
+access_sd_tasks_settings_public,sd_tasks.settings,model_sd_tasks_settings,base.group_public,1,0,0,0
+access_sd_tasks_settings_all_users,sd_tasks.settings,model_sd_tasks_settings,base.group_user,1,0,0,0
+
