@@ -5,12 +5,30 @@
             <field name="model">project.task</field>
             <field name="priority">1000</field>
             <field name="arch" type="xml">
-                <list>
+                <list js_class="project_task_list">
                     <field name="name"/>
                     <field name="date_deadline"/>
                     <field name="user_ids" widget="many2many_avatar_user"/>
                     <field name="activity_ids" widget="list_activity"/>
+                                <field name="state" widget="project_task_state_selection" class="o_task_state_widget" />
+<!--                    <field name="stage_id" invisible="not project_id or not stage_id" widget="task_stage_with_state_selection"/>-->
                 </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sd_tasks_tasks_search">
+            <field name="name">My Tasks Search</field>
+            <field name="model">project.task</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <search >
+                    <field name="name"/>
+                    <filter string="Ongoing" name="ongoing" domain="[]" />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Ongoing" name="ongoing" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -29,7 +47,7 @@
                                 <div class="d-flex w-100">
                                     <field name="priority" widget="priority_switch" class="me-3"/>
                                     <field name="name" options="{'line_breaks': False}" widget="text"
-                                            readonly="readonly_user" invisible="invisible_user"
+                                            readonly="readonly_user"
                                            class="o_task_name text-truncate w-md-75 w-100 pe-2"
                                            placeholder="Task Title..."/>
                                 </div>
@@ -78,6 +96,7 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('sd_tasks_tasks_form')}),
                 ]"
             />
+            <field name="context">{'search_default_open_tasks': 1}</field>
         </record>
 
         <record model="ir.actions.client" id="sd_tasks_dashboard">
@@ -91,10 +110,10 @@
                   id="sd_tasks.kanban"
                   action="sd_tasks.action_window_services_settings"/>
 
-        <menuitem name="Tasks Dashboard"
-                  id="tasks_dashboard"
-                  parent="kanban"
-                  action="sd_tasks_dashboard"/>
+<!--        <menuitem name="Tasks Dashboard"-->
+<!--                  id="tasks_dashboard"-->
+<!--                  parent="kanban"-->
+<!--                  action="sd_tasks_dashboard"/>-->
 
     </data>
 </odoo>

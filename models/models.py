@@ -27,3 +27,9 @@ class SdTasksProjectTask(models.Model):
         my_tasks = self.search_read([('user_ids', 'in', self.env.user.id)], headers)
         print(my_tasks)
         return my_tasks
+
+    def write(self, vals):
+        result = super().write(vals)
+        print(f"\n ++++++++++++++++++: {result}\n")
+
+        return result
