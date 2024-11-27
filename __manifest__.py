@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sd_tasks",
+    'name': "Sd Tasks",
 
     'summary': """
         """,
@@ -10,7 +10,7 @@
     """,
 
     'author': "Arash Homayounfar",
-    'website': "https://gilaneh.com",
+    'website': "https://giladoo.com/shop/sd_tasks",
 
     # Categories can be used to filter modules in modules listing
     # for the full list
