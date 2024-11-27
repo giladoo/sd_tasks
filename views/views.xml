@@ -5,17 +5,29 @@
             <field name="model">project.task</field>
             <field name="priority">1000</field>
             <field name="arch" type="xml">
-                <list create="0" edit="1" js_class="project_task_list">
+                <list create="0" js_class="project_task_list">
                     <field name="name"/>
                     <field name="partner_id"/>
-
-                    <field name="user_ids" widget="many2many_avatar_user"/>
+                    <field name="user_ids" widget="many2many_avatar_user" column_invisible="context.get('mobile', False)"/>
                     <field name="date_deadline" widget="remaining_days" />
                     <field name="activity_ids" widget="list_activity"/>
                     <field name="state" widget="project_task_state_selection" class="o_task_state_widget" />
-<!--                    <field name="state"  class="o_task_state_widget" />-->
-<!--                    <field name="stage_id" invisible="not project_id or not stage_id" widget="task_stage_with_state_selection"/>-->
                 </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sd_tasks_tasks_pivot">
+            <field name="name">My Tasks List</field>
+            <field name="model">project.task</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <pivot >
+                    <field name="name"/>
+                    <field name="partner_id" type="row"/>
+                    <field name="date_deadline" type="col"  interval="day" />
+                    <field name="activity_ids" />
+                    <field name="state"  />
+                </pivot>
             </field>
         </record>
 
@@ -40,15 +52,10 @@
             <field name="model">project.task</field>
             <field name="priority">1000</field>
             <field name="arch" type="xml">
-<!--                <div class="d-flex justify-content-end o_state_container" invisible="not active">-->
-<!--                    <field name="state" widget="project_task_state_selection"-->
-<!--                           class="o_task_state_widget" />-->
-<!--                </div>-->
-                <form string="Task" create="0"  class="o_form_project_tasks" >
+                <form string="Task" create="0" delete="0"  class="o_form_project_tasks" >
                                 <field name="readonly_user" invisible="1" />
                                 <field name="invisible_user" invisible="1" />
                     <sheet >
-
                         <div class="oe_title pe-0" >
                             <h1 class="d-flex justify-content-between align-items-center" >
                                 <div class="d-flex w-100">
@@ -96,17 +103,45 @@
 
         <!-- ==================================================  Action Window ====================-->
 
-        <record model="ir.actions.act_window" id="sd_tasks.action_window_services_settings">
+        <record model="ir.actions.act_window" id="sd_tasks.action_window_project_task">
             <field name="name">My Tasks List</field>
             <field name="res_model">project.task</field>
-            <field name="view_mode">list,kanban,form</field>
+            <field name="view_mode">list,form,pivot</field>
             <field name="domain">[('user_ids', 'in', [uid])]</field>
             <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'list', 'view_id': ref('sd_tasks_tasks_list')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('sd_tasks_tasks_form')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('sd_tasks_tasks_pivot')}),
+
                 ]"
             />
             <field name="context">{'search_default_open_tasks': 1}</field>
+        </record>
+        <record model="ir.actions.act_window" id="sd_tasks.action_window_project_task_all">
+            <field name="name">All Tasks List</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">list,form,pivot</field>
+<!--            <field name="domain">[('user_ids', 'in', [uid])]</field>-->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sd_tasks_tasks_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('sd_tasks_tasks_form')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('sd_tasks_tasks_pivot')}),
+                ]"
+            />
+            <field name="context">{'search_default_open_tasks': 1,  'search_default_customer': 1 }</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sd_tasks.action_window_project_project">
+            <field name="name">project</field>
+            <field name="res_model">project.project</field>
+            <field name="view_mode">kanban,list</field>
+<!--            <field name="domain">[('user_ids', 'in', [uid])]</field>-->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('project.view_project_kanban')}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('project.view_project')}),
+                ]"
+            />
+            <field name="context">{'search_default_open_tasks': 1,  'search_default_user': 1 }</field>
         </record>
 
         <record model="ir.actions.client" id="sd_tasks_dashboard">
@@ -117,13 +152,20 @@
 
         <menuitem name="My Tasks "
                   sequence="0"
-                  id="sd_tasks.kanban"
-                  action="sd_tasks.action_window_services_settings"/>
+                  id="project_task"
+                  action="sd_tasks.action_window_project_task"/>
 
-<!--        <menuitem name="Tasks Dashboard"-->
-<!--                  id="tasks_dashboard"-->
-<!--                  parent="kanban"-->
-<!--                  action="sd_tasks_dashboard"/>-->
+        <menuitem name="All Tasks"
+                  id="project_task_all"
+                  parent="project_task"
+                  groups="sd_tasks.group_sd_tasks_admins"
+                  action="sd_tasks.action_window_project_task_all"/>
+
+        <menuitem name="Projects"
+                  id="project_project_all"
+                  parent="project_task"
+                  groups="sd_tasks.group_sd_tasks_admins"
+                  action="sd_tasks.action_window_project_project"/>
 
     </data>
 </odoo>

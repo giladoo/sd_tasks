@@ -14,19 +14,28 @@ class SdTasksProjectTask(models.Model):
         return my_tasks
 
     def write(self, vals):
-        vals_keys = set(vals.keys()).difference({'state', 'date_last_stage_update' })
+        vals_keys = set(vals.keys()).difference({'state', 'date_last_stage_update'})
         # Users have access to change task state only
         if not self.env.user.has_group('sd_tasks.group_sd_tasks_admins'):
-            if len(vals) > 1 or len(vals_keys) > 0 :
+            if self.env.user.id not in self.user_ids.ids:
+                raise AccessError(_(f"You dont have permission to change this task.\n You can leave a massage. "))
+            elif len(vals) > 1 or len(vals_keys) > 0:
                 raise AccessError(_(f"You have permission to change 'Task State'\n Please discard form update and try again "))
-            state = vals.get('state', False)
-            date_last_stage_update = vals.get('date_last_stage_update', False)
-
-            if state and state.find('done') < 0 and state.find('cancel') < 0:
-                vals = {'state': state}
-            elif date_last_stage_update:
-                vals = {'date_last_stage_update': date_last_stage_update}
             else:
-                vals = {}
+                state = vals.get('state', False)
+                date_last_stage_update = vals.get('date_last_stage_update', False)
+
+                if state and state.find('done') < 0 and state.find('cancel') < 0:
+                    vals = {'state': state}
+                elif date_last_stage_update:
+                    vals = {'date_last_stage_update': date_last_stage_update}
+                else:
+                    vals = {}
 
         return super().write(vals)
+    def unlink(self,):
+        if not self.env.user.has_group('sd_tasks.group_sd_tasks_admins'):
+            raise AccessError(
+                _(f"You dont have permission to delete a task "))
+
+        return super().unlink()
