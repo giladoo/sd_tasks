@@ -6,21 +6,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 12:17+0000\n"
-"PO-Revision-Date: 2024-11-27 15:49+0330\n"
+"POT-Creation-Date: 2024-11-27 19:21+0000\n"
+"PO-Revision-Date: 2024-11-27 22:57+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"Language: fa_IR\n"
+"Plural-Forms: \n"
+"Language: fa\n"
 "X-Generator: Poedit 2.2\n"
 
 #. module: sd_tasks
 #: model:res.groups,name:sd_tasks.group_sd_tasks_admins
 msgid "Administrators"
 msgstr ""
+
+#. module: sd_tasks
+#: model:ir.ui.menu,name:sd_tasks.project_task_all
+msgid "All Tasks"
+msgstr "همه کارها"
+
+#. module: sd_tasks
+#: model:ir.actions.act_window,name:sd_tasks.action_window_project_task_all
+msgid "All Tasks List"
+msgstr "لیست همه کارها"
 
 #. module: sd_tasks
 #: model_terms:ir.ui.view,arch_db:sd_tasks.sd_tasks_tasks_form
@@ -38,12 +48,12 @@ msgid "Invisible User"
 msgstr ""
 
 #. module: sd_tasks
-#: model:ir.ui.menu,name:sd_tasks.kanban
+#: model:ir.ui.menu,name:sd_tasks.project_task
 msgid "My Tasks "
 msgstr "کارهای من"
 
 #. module: sd_tasks
-#: model:ir.actions.act_window,name:sd_tasks.action_window_services_settings
+#: model:ir.actions.act_window,name:sd_tasks.action_window_project_task
 msgid "My Tasks List"
 msgstr "لیست کارهای من"
 
@@ -51,6 +61,11 @@ msgstr "لیست کارهای من"
 #: model_terms:ir.ui.view,arch_db:sd_tasks.sd_tasks_tasks_search
 msgid "Ongoing"
 msgstr ""
+
+#. module: sd_tasks
+#: model:ir.ui.menu,name:sd_tasks.project_project_all
+msgid "Projects"
+msgstr "پروژه ها"
 
 #. module: sd_tasks
 #: model:ir.model.fields,field_description:sd_tasks.field_project_task__readonly_user
@@ -83,9 +98,35 @@ msgstr ""
 #: code:addons/custom/addons/sd_tasks/models/models.py:0
 #: code:addons/sd_tasks/models/models.py:0
 msgid ""
+"You dont have permission to change this task.\n"
+" You can leave a massage. "
+msgstr ""
+"شما دسترسی برای ویرایش این رکورد را ندارید \n"
+"اما شما می توانید روی این رکورد پیام بگذارید."
+
+#. module: sd_tasks
+#. odoo-python
+#: code:addons/custom/addons/sd_tasks/models/models.py:0
+#: code:addons/sd_tasks/models/models.py:0
+msgid "You dont have permission to delete a task "
+msgstr "شما اجازه حذف این رکورد را ندارید"
+
+#. module: sd_tasks
+#. odoo-python
+#: code:addons/custom/addons/sd_tasks/models/models.py:0
+#: code:addons/sd_tasks/models/models.py:0
+msgid ""
 "You have permission to change 'Task State'\n"
 " Please discard form update and try again "
 msgstr ""
+"شما فقط می توانید وضعیت این رکورد را تغییر دهید.\n"
+"لطفا با دکمه x، انصراف از تغییر بدهید.\n"
+"نکته: فقط مدیر کارها می تواند کنسل یا انجام شده را انتخاب کند."
+
+#. module: sd_tasks
+#: model:ir.actions.act_window,name:sd_tasks.action_window_project_project
+msgid "project"
+msgstr "پروژه"
 
 #. module: sd_tasks
 #: model:ir.module.category,description:sd_tasks.module_category_sd_tasks
