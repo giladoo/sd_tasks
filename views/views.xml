@@ -16,6 +16,23 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="sd_tasks_tasks_list_editable">
+            <field name="name">My Tasks List</field>
+            <field name="model">project.task</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" expand="1" >
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="partner_id"/>
+                    <field name="user_ids" widget="many2many_avatar_user" column_invisible="context.get('mobile', False)"/>
+                    <field name="date_deadline" widget="remaining_days" />
+                    <field name="activity_ids" widget="list_activity"/>
+                    <field name="state" widget="project_task_state_selection" class="o_task_state_widget" />
+                </list>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="sd_tasks_tasks_pivot">
             <field name="name">My Tasks List</field>
             <field name="model">project.task</field>
@@ -72,7 +89,7 @@
                     <field name="name"/>
                     <filter string="Ongoing" name="ongoing" domain="[]" />
 
-                    <group expand="0" string="Group By">
+                    <group  string="Group By">
                         <filter string="Ongoing" name="ongoing" domain="[]" context="{'group_by':'state'}"/>
                     </group>
                 </search>
@@ -165,6 +182,22 @@
             />
             <field name="context">{'search_default_open_tasks': 1,  'search_default_customer': 1 }</field>
         </record>
+        <record model="ir.actions.act_window" id="sd_tasks.action_window_project_task_all_list">
+            <field name="name">All Tasks List</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">list,graph,pivot</field>
+<!--            <field name="domain">[('user_ids', 'in', [uid])]</field>-->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sd_tasks_tasks_list_editable')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('sd_tasks_tasks_graph_all')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('sd_tasks_tasks_pivot')}),
+
+                ]"
+            />
+            <field name="context">{'search_default_open_tasks': 1,
+                'search_default_project': 1,
+                'search_default_customer': 0 }</field>
+        </record>
 
         <record model="ir.actions.act_window" id="sd_tasks.action_window_project_project">
             <field name="name">project</field>
@@ -195,8 +228,15 @@
                   groups="sd_tasks.group_sd_tasks_admins"
                   action="sd_tasks.action_window_project_task_all"/>
 
+        <menuitem name="All Tasks List"
+                  id="project_task_all_list"
+                  parent="project_task"
+                  groups="sd_tasks.group_sd_tasks_admins"
+                  action="sd_tasks.action_window_project_task_all_list"/>
+
         <menuitem name="Projects"
                   id="project_project_all"
+                  sequence="100"
                   parent="project_task"
                   groups="sd_tasks.group_sd_tasks_admins"
                   action="sd_tasks.action_window_project_project"/>
