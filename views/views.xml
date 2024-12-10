@@ -170,12 +170,12 @@
         <record model="ir.actions.act_window" id="sd_tasks.action_window_project_task_all">
             <field name="name">All Tasks List</field>
             <field name="res_model">project.task</field>
-            <field name="view_mode">list,form,graph,pivot</field>
+            <field name="view_mode">list,graph,pivot</field>
 <!--            <field name="domain">[('user_ids', 'in', [uid])]</field>-->
             <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'graph', 'view_id': ref('sd_tasks_tasks_graph_all')}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sd_tasks_tasks_list_editable')}),
                 (0, 0, {'view_mode': 'pivot', 'view_id': ref('sd_tasks_tasks_pivot')}),
-                (0, 0, {'view_mode': 'list', 'view_id': ref('sd_tasks_tasks_list')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('sd_tasks_tasks_form')}),
 
                 ]"
@@ -228,7 +228,7 @@
                   groups="sd_tasks.group_sd_tasks_admins"
                   action="sd_tasks.action_window_project_task_all"/>
 
-        <menuitem name="All Tasks List"
+        <menuitem name="Tasks List"
                   id="project_task_all_list"
                   parent="project_task"
                   groups="sd_tasks.group_sd_tasks_admins"

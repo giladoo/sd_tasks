@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 19:21+0000\n"
-"PO-Revision-Date: 2024-11-27 22:57+0330\n"
+"POT-Creation-Date: 2024-12-10 18:19+0000\n"
+"PO-Revision-Date: 2024-12-10 21:49+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,7 @@ msgstr "همه کارها"
 
 #. module: sd_tasks
 #: model:ir.actions.act_window,name:sd_tasks.action_window_project_task_all
+#: model:ir.actions.act_window,name:sd_tasks.action_window_project_task_all_list
 msgid "All Tasks List"
 msgstr "لیست همه کارها"
 
@@ -87,6 +88,11 @@ msgstr ""
 #: model:ir.actions.client,name:sd_tasks.sd_tasks_dashboard
 msgid "Tasks Dashboard"
 msgstr ""
+
+#. module: sd_tasks
+#: model:ir.ui.menu,name:sd_tasks.project_task_all_list
+msgid "Tasks List"
+msgstr "لیست کارها"
 
 #. module: sd_tasks
 #: model:res.groups,name:sd_tasks.group_sd_tasks_users
