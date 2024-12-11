@@ -13,6 +13,17 @@ class SdTasksProjectTask(models.Model):
         my_tasks = self.search_read([('user_ids', 'in', self.env.user.id)], headers)
         return my_tasks
 
+    def sd_tasks_view_task(self):
+        print(f"\n      >>>>>>>>>>>  {self}")
+        return {
+            'res_model': 'project.task',
+            'res_id': self.id,
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_id': self.env.ref('sd_tasks.sd_tasks_tasks_form').id,
+
+        }
+
     def write(self, vals):
         vals_keys = set(vals.keys()).difference({'state', 'date_last_stage_update'})
         # Users have access to change task state only

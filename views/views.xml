@@ -22,6 +22,8 @@
             <field name="priority">1000</field>
             <field name="arch" type="xml">
                 <list editable="bottom" expand="1" >
+                    <button name="sd_tasks_view_task" type="object" string="View" class="btn btn-secondary "></button>
+<!--                    <button name="%(sd_tasks.action_window_project_task_all)d" type="action" string="View" class="btn btn-secondary "></button>-->
                     <field name="name"/>
                     <field name="project_id"/>
                     <field name="partner_id"/>
